@@ -2,4 +2,8 @@ const express = require('express');
 
 const app = express();
 
-app.listen(50)
+
+
+app.listen(5000, ()=> {
+
+})
