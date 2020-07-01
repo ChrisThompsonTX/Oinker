@@ -1,6 +1,10 @@
 const express = require('express');
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors());
+app.use(express.json());
 
 app.get('/', (req,res)=> {
     res.json({
@@ -8,8 +12,15 @@ app.get('/', (req,res)=> {
     });
 });
 
-app.post('/mews', (req,res)=> {
-    console.log(req.body)
+app.post('/oinks', (req,res)=> {
+    if (isValidOink(req.body)) {
+
+    } else {
+        res.status(422);
+        res.json({
+            message: "Name and Content required!"
+        })
+    }
 });
 
 app.listen(5000, ()=> {
