@@ -1,7 +1,12 @@
 const express = require('express');
 const cors = require('cors');
+const monk = require('monk');
 
 const app = express();
+
+const db = monk('localhost/oinker');
+const oinks = db.get('oinks');
+
 
 app.use(cors());
 app.use(express.json());
@@ -23,7 +28,12 @@ app.post('/oinks', (req,res)=> {
             name: req.body.name.toString(),
             content: req.body.content.toString()
         };
-        
+
+        oinks
+            .insert(oink)
+            .then(createdOink => {
+                res.json(createdOink);
+            });
     } else {
         res.status(422);
         res.json({
